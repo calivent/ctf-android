@@ -16,11 +16,17 @@ jobs:
         distribution: 'temurin'
         java-version: '17'
 
+    - name: Setup Android SDK
+      uses: android-actions/setup-android@v3
+
     - name: Download and Setup Gradle 8.0
       run: |
         wget https://services.gradle.org/distributions/gradle-8.0-bin.zip
         unzip -q gradle-8.0-bin.zip
         echo "$PWD/gradle-8.0/bin" >> $GITHUB_PATH
+
+    - name: Install Android Platform 34
+      run: sdkmanager "platforms;android-34" "build-tools;34.0.0"
 
     - name: Build Debug APK
       run: gradle assembleDebug
